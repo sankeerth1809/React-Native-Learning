@@ -1,63 +1,29 @@
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { StyleSheet,  Text, SafeAreaView, View, FlatList} from 'react-native';
+// Import our screens
+import HomeScreen from './src/screens/HomeScreen';
+import DetailsScreen from './src/screens/DetailsScreen';
 
-
-const App = () => {
-  const DATA = [
-     { id: '1', title: 'First Item' },
-     { id: '2', title: 'Second Item' },
-     { id: '3', title: 'Third Item' },
-     { id: '4', title: 'Fourth Item' },
-     { id: '5', title: 'Fifth Item' },
-     { id: '6', title: 'Sixth Item' },
-     { id: '7', title: 'Seventh Item' },
-     { id: '8', title: 'Eighth Item' },
-     { id: '9', title: 'Ninth Item' },
-     { id: '10', title: 'Tenth Item' },
-  ];
-
-  return (
-    <SafeAreaView style={styles.container}>
-      {DATA.map((item)=>(
-        <View key={item.id}>
-          <Text>{item.title}</Text>
-        </View>
-      ))}
-
-
-      <FlatList
-        data={DATA}
-       
-        renderItem={({item}:any)=> 
-          <View style={styles.item}>
-          <Text style={styles.title}>{item.id}</Text>
-          <Text style={styles.title}>{item.title}</Text>
-          </View>}
-        keyExtractor={(item)=> item.id}
-      />
-    </SafeAreaView>
-  );
+// This is the key for TypeScript. It defines the route names and the params they expect.
+export type RootStackParamList = {
+  Home: undefined;
+  Details: { itemId: number; otherParam: string };
 };
 
+// Create the stack navigator
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f0f0f0',
-  },
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 5,
-  },
-  title: {
-    fontSize: 18,
-    marginLeft: 8
-  },
-});
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default App;
