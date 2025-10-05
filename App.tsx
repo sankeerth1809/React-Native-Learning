@@ -1,19 +1,40 @@
 
-import { StyleSheet,  Text, SafeAreaView, View} from 'react-native';
+import { StyleSheet,  Text, SafeAreaView, View, FlatList} from 'react-native';
 
 
 const App = () => {
+  const DATA = [
+     { id: '1', title: 'First Item' },
+     { id: '2', title: 'Second Item' },
+     { id: '3', title: 'Third Item' },
+     { id: '4', title: 'Fourth Item' },
+     { id: '5', title: 'Fifth Item' },
+     { id: '6', title: 'Sixth Item' },
+     { id: '7', title: 'Seventh Item' },
+     { id: '8', title: 'Eighth Item' },
+     { id: '9', title: 'Ninth Item' },
+     { id: '10', title: 'Tenth Item' },
+  ];
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.box1}>
-        <Text style={styles.text}>1</Text>
-      </View>
-      <View style={styles.box2}>
-        <Text style={styles.text}>2</Text>
-      </View>
-      <View style={styles.box3}>
-        <Text style={styles.text}>3</Text>
-      </View>
+      {DATA.map((item)=>(
+        <View key={item.id}>
+          <Text>{item.title}</Text>
+        </View>
+      ))}
+
+
+      <FlatList
+        data={DATA}
+       
+        renderItem={({item}:any)=> 
+          <View style={styles.item}>
+          <Text style={styles.title}>{item.id}</Text>
+          <Text style={styles.title}>{item.title}</Text>
+          </View>}
+        keyExtractor={(item)=> item.id}
+      />
     </SafeAreaView>
   );
 };
@@ -23,38 +44,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
-
-    flexDirection: 'column', // 'row' or 'column'
-    justifyContent: 'space-around', // 'center', 'space-between', etc.
-    alignItems: 'center', // 'center', 'flex-start', etc.
   },
-
-  // These are our Flex Items
-  box1: {
-    width: 80,
-    height: 80,
-    backgroundColor: '#ff6347', // Tomato
-    justifyContent: 'center',
+  item: {
+    flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: 'white',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 5,
   },
-  box2: {
-    width: 80,
-    height: 80,
-    backgroundColor: '#4682b4', // SteelBlue
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  box3: {
-    width: 80,
-    height: 80,
-    backgroundColor: '#32cd32', // LimeGreen
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: 'white',
-    fontSize: 24,
-    fontWeight: 'bold',
+  title: {
+    fontSize: 18,
+    marginLeft: 8
   },
 });
 
