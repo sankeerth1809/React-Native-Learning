@@ -1,42 +1,20 @@
 import React, { useState } from 'react';
-import { StyleSheet,  Text, SafeAreaView, View, Button } from 'react-native';
+import { StyleSheet,  Text, SafeAreaView, TextInput, Button } from 'react-native';
 
-
-
-const GreetingCard = (props: any) => {
-  return(
-    <View style={styles.content}>
-    <Text>Hello {props.name}</Text>
-    <Text>Welcome as a {props.role}</Text>
-    </View>
-  )
-}
-
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
-  const handleReset = () => {
-    setCount(0);
-  }
-
-  return(
-    <View>
-      <Text>Counter {count}</Text>
-      <Button title='Increment' onPress={()=> {setCount(count+1)}}/>
-      <Button title='Reset' onPress={handleReset}/>
-      <Button title='Decrement' onPress={()=> {setCount(count-1)}}/>
-    </View>
-  )
-}
 
 const App = () => {
+  const [name, setName] = useState ("");
   return (
-    <SafeAreaView style={styles.container}>
-
-    <GreetingCard name="Sankeerth" role = "Netive developer"/>
-    <GreetingCard name="Roshna" role = "Angular developer"/>
-
-    <Counter/>
+    <SafeAreaView>
+      <Text style={styles.label}>Enter your name</Text>
+      <TextInput
+        style = {styles.input}
+        placeholder = "Sank..."
+        value={name} // whenever the stte is updated this field should also change
+        onChangeText={(e) => setName(e)}  // or onChangeText={setName}
+      />
+      <Text>Hai {name}</Text>
+      <Button title="Clear" onPress={() => setName("")} />
     </SafeAreaView>
   );
 };
@@ -44,47 +22,21 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
-  },
-  content: {
+    justifyContent: 'center',
     padding: 20,
-    alignItems: 'center', // Center items horizontally
   },
-  fillerBox: {
-    width: '100%',
-    height: 200,
-    backgroundColor: '#e0e0e0',
-    marginTop: 20,
-    borderRadius: 10,
-  },
-  card: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-    width: '100%',
-    marginBottom:20,
-  },
-  image: {
-    width: 80,
-    height: 80,
-    marginBottom: 15,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
+  label: {
+    fontSize: 18,
     marginBottom: 10,
   },
-  paragraph: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-   customButton: {
-    backgroundColor: '#007bff',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+  input: {
+    backgroundColor: 'white',
+    borderColor: '#cccccc',
+    borderWidth: 1,
     borderRadius: 5,
-    marginTop: 20,
+    padding: 10,
+    fontSize: 16,
+    marginBottom: 20,
   },
 });
 
