@@ -1,38 +1,42 @@
-import React from 'react';
-import { StyleSheet, ScrollView, View, Text, SafeAreaView, Image, Button, Alert, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet,  Text, SafeAreaView, View, Button } from 'react-native';
 
+
+
+const GreetingCard = (props: any) => {
+  return(
+    <View style={styles.content}>
+    <Text>Hello {props.name}</Text>
+    <Text>Welcome as a {props.role}</Text>
+    </View>
+  )
+}
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  const handleReset = () => {
+    setCount(0);
+  }
+
+  return(
+    <View>
+      <Text>Counter {count}</Text>
+      <Button title='Increment' onPress={()=> {setCount(count+1)}}/>
+      <Button title='Reset' onPress={handleReset}/>
+      <Button title='Decrement' onPress={()=> {setCount(count-1)}}/>
+    </View>
+  )
+}
 
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.content}>
-      <View style={styles.card}>
-        <Image
-          source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-          style={styles.image}
-        />
-        <Text style={styles.title}>Hello, Sankeerth!</Text>
-        <Text style={styles.paragraph}>
-          This is a basic card layout built with core components.
-        </Text>
-      </View>
 
-      <Button title='Press Me' color="#f10e0eff" onPress={()=> Alert.alert('Pressed')}/>
+    <GreetingCard name="Sankeerth" role = "Netive developer"/>
+    <GreetingCard name="Roshna" role = "Angular developer"/>
 
-      <TouchableOpacity
-      style = {styles.customButton}
-      onPress={()=>Alert.alert('Custom Button Pressed')}>
-        <Text style={styles.paragraph}>Presss Meh Haaaard</Text>
-      </TouchableOpacity>
-
-      <View style={styles.fillerBox}/>
-      <View style={styles.fillerBox}/>
-      <View style={styles.fillerBox}/>
-      <View style={styles.fillerBox}/>
-    </View>
-    </ScrollView>
-
+    <Counter/>
     </SafeAreaView>
   );
 };
